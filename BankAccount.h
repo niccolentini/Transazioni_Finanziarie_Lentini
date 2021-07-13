@@ -1,13 +1,27 @@
 //
 // Created by nicco on 13/07/21.
 //
-
 #ifndef TRANSAZIONIFINANZIARIE_BANKACCOUNT_H
 #define TRANSAZIONIFINANZIARIE_BANKACCOUNT_H
 using namespace std;
 #include "vector"
 #include "User.h"
-#include "main.cpp"
+
+struct Transaction {
+    Transaction(int s, int r, float a, string d, bool re){
+        sender=s;
+        receiver=r;
+        amount=a;
+        data=d;
+        received=re;
+    }
+    int sender;
+    int receiver;
+    float amount;
+    string data;
+    bool received;
+};
+
 
 class BankAccount {
 public:
@@ -15,10 +29,20 @@ public:
         balance += i;
     }
 
-    void Transazione (bool rec, BankAccount& b2, float amount){ //fixme.................................................
-        Transaction t (number, b2.getNumber, amount, "data", rec);
+    void Transazione (bool rec, BankAccount& b2, float amount){
+        Transaction t (number, b2.getNumber(), amount, "data", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);
+
+        if(rec) {
+            balance += amount;
+            b2.balance -= amount;
+        }
+        else{
+            balance -= amount;
+            b2.balance += amount;
+        }
+
     }
 
     User *getOwner() const {
