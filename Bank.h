@@ -24,7 +24,8 @@ public:
         addresses.push_back(a);
     }
 
-    void newBankAccount (User & nu){
+    BankAccount newBankAccount (User & nu){
+        bankAccountNumber++;
         BankAccount bA(nu, bankAccountNumber);
         bankAccounts.insert(make_pair(bankAccountNumber, bA));
 
@@ -33,7 +34,8 @@ public:
             clients.push_back(&nu);
 
         nu.addAccount();
-        bankAccountNumber++;
+        return bA;
+
     }
 
     const string &getName() const {

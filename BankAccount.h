@@ -6,6 +6,7 @@
 using namespace std;
 #include "vector"
 #include "User.h"
+#include "iostream"
 
 struct Transaction {
     Transaction(int s, int r, float a, string d, bool re){
@@ -29,7 +30,24 @@ public:
         balance += i;
     }
 
-    void Transazione (bool rec, BankAccount& b2, float amount){
+    void recharge(float r){
+        if(r>0) {
+            balance += r;
+            cout << "Charged Succesfully!" << endl;
+        }
+        else
+            cout<<"Charging not possible (value < 0)..."<<endl;
+    }
+
+    void withdraw(float r){
+        if(r <= balance)
+            balance -= r;
+        else
+            cout<<"You can't withdraw more than "<<balance<<"$"<<endl;
+    }
+
+
+    void transazione (bool rec, BankAccount& b2, float amount){
         Transaction t (number, b2.getNumber(), amount, "data", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);
@@ -55,6 +73,12 @@ public:
 
     float getBalance() const {
         return balance;
+    }
+
+    void info(){
+        cout<<"Bank Account owner: "<<owner->getName()<<" "<<owner->getSurname()<<endl;
+        cout<<"Bank Account number: "<<number<<endl;
+        cout<<"Balance: "<<balance<<endl;
     }
 
 private:
