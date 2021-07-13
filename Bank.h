@@ -1,0 +1,64 @@
+//
+// Created by nicco on 13/07/21.
+//
+
+#ifndef TRANSAZIONIFINANZIARIE_BANK_H
+#define TRANSAZIONIFINANZIARIE_BANK_H
+using namespace std;
+
+#include <vector>
+#include "string"
+#include "User.h"
+#include "list"
+#include "map"
+#include "BankAccount.h"
+#include "algorithm"
+
+class Bank {
+public:
+    Bank(string n, string tn, string a) : name(n), telephoneNumber(tn) {
+        addresses.push_back(a);
+    }
+
+    void addAddress(string a){
+        addresses.push_back(a);
+    }
+
+    void newBankAccount (User & nu){
+        BankAccount bA(nu, bankAccountNumber);
+        bankAccounts.insert(make_pair(bankAccountNumber, bA));
+
+        auto el = find(clients.begin(), clients.end(), &nu);
+        if(el != clients.end())
+            clients.push_back(&nu);
+
+        nu.addAccount();
+        bankAccountNumber++;
+    }
+
+    const string &getName() const {
+        return name;
+    }
+
+    const string &getTelephoneNumber() const {
+        return telephoneNumber;
+    }
+
+    const vector<string> &getAddresses() const {
+        return addresses;
+    }
+
+
+private:
+    string name;
+    string telephoneNumber;
+    vector<string> addresses;
+
+    list<User*> clients;
+    static int bankAccountNumber; // variabile statica che attribuisce numero del conto corrente alla sua inizializzazione
+    map<int, BankAccount> bankAccounts;
+
+};
+
+
+#endif //TRANSAZIONIFINANZIARIE_BANK_H
