@@ -1,7 +1,7 @@
 using namespace std;
 
 #include <iostream>
-#include "string"
+#include <string>
 #include "Bank.h"
 #include "User.h"
 #include <fstream>
@@ -29,9 +29,7 @@ int main() {
     bA2.recharge(3600);
     bA3.recharge(2456.68);
 
-    PaulJames<<"Balance of "<<user1.getName()<<" "<<user1.getSurname()<<" = "<<bA1.getBalance()<<endl;
-    PaulJames.close();
-
+    PaulJames<<"Balance of "<<user1.getName()<<" "<<user1.getSurname()<<" = "<<bA1.getBalance()<<"\n"<<endl;
 
     bA2.transazione(true, bA1, 500);
     bA2.info();
@@ -44,7 +42,19 @@ int main() {
     cout<<endl;
     bA1.info();
 
+    PaulJames<<"New Balance= "<<bA1.getBalance()<<"\n";
+    PaulJames.close();
 
+    ifstream PaulJ;
+    PaulJ.open("paulj.txt");
+    cout<<"Lettura file paulj.txt"<<endl;
+
+    string line;
+    while( getline (PaulJ, line)){
+        cout<<line<<endl;
+    }
+
+    PaulJ.close();
 
     return 0;
 }
