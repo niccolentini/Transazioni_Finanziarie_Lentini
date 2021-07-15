@@ -5,7 +5,7 @@
 #define TRANSAZIONIFINANZIARIE_BANKACCOUNT_H
 using namespace std;
 #include "vector"
-#include "User.h"
+//#include "User.h"
 #include "iostream"
 
 struct Transaction {
@@ -26,11 +26,15 @@ struct Transaction {
 
 class BankAccount {
 public:
-    BankAccount(User& ow, int n, float i = 0) : owner(&ow), number(n) {
+//    BankAccount(User& ow, int n, float i = 0) : owner(&ow), number(n) {
+//        balance += i;
+//    }
+
+    BankAccount(int n, float i = 0) : number(n) {
         balance += i;
     }
 
-    void recharge(float r){
+    void recharge(const float& r){
         if(r>0) {
             balance += r;
             cout << "Charged Succesfully!" << endl;
@@ -39,7 +43,7 @@ public:
             cout<<"Charging not possible (value < 0)..."<<endl;
     }
 
-    void withdraw(float r){
+    void withdraw(const float& r){
         if(r <= balance)
             balance -= r;
         else
@@ -47,7 +51,7 @@ public:
     }
 
 
-    void transazione (bool rec, BankAccount& b2, float amount){
+    void transazione (const bool& rec, BankAccount& b2,const float& amount){
         Transaction t (number, b2.getNumber(), amount, "data", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);
@@ -63,9 +67,6 @@ public:
 
     }
 
-    User *getOwner() const {
-        return owner;
-    }
 
     int getNumber() const {
         return number;
@@ -76,13 +77,19 @@ public:
     }
 
     void info(){
-        cout<<"Bank Account owner: "<<owner->getName()<<" "<<owner->getSurname()<<endl;
+        //cout<<"Bank Account owner: "<<owner->getName()<<" "<<owner->getSurname()<<endl;
         cout<<"Bank Account number: "<<number<<endl;
         cout<<"Balance: "<<balance<<endl;
     }
 
+    bool operator ==(int n){
+        if(number == n)
+            return true;
+        else
+            return false;
+    }
+
 private:
-    User* owner;
     const int number;
     float balance{0};
     vector<Transaction> transazioni;

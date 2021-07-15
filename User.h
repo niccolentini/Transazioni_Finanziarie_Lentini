@@ -6,6 +6,7 @@
 #define TRANSAZIONIFINANZIARIE_USER_H
 using namespace std;
 #include "string"
+#include "BankAccount.h"
 
 class User {
 public:
@@ -42,13 +43,14 @@ public:
         User::address = address;
     }
 
+    vector<BankAccount*> bankaccount;
+
 private:
     string name;
     string surname;
     string telephoneNumber;
     string address;
     int n_accounts{0};
-
 };
 
 

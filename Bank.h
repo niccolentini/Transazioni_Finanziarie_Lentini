@@ -24,10 +24,12 @@ public:
         addresses.push_back(a);
     }
 
-    BankAccount newBankAccount (User & nu){
+    BankAccount newBankAccount (User & nu, float init = 0){
         bankAccountNumber++;
-        BankAccount bA(nu, bankAccountNumber);
+        BankAccount bA(bankAccountNumber, init);
         bankAccounts.insert(make_pair(bankAccountNumber, bA));
+
+        nu.bankaccount.push_back(&bA);
 
         auto el = find(clients.begin(), clients.end(), &nu);
         if(el != clients.end())
@@ -36,6 +38,10 @@ public:
         nu.addAccount();
         return bA;
 
+    }
+
+    void removeBankAccount(int & nBA){
+        bankAccounts.erase(nBA);
     }
 
     const string &getName() const {
