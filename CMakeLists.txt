@@ -3,4 +3,9 @@ project(TransazioniFinanziarie)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(TransazioniFinanziarie main.cpp User.cpp User.h Bank.cpp Bank.h BankAccount.cpp BankAccount.h)
+add_subdirectory(test)
+
+set(SOURCE_FILES User.h Bank.h BankAccount.h User.cpp Bank.cpp BankAccount.cpp test/BankAccountTest.cpp test/UserTest.cpp)
+add_executable(TransazioniFinanziarie main.cpp)
+add_library(core ${SOURCE_FILES})
+target_link_libraries(TransazioniFinanziarie core)
