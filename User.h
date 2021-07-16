@@ -12,11 +12,6 @@ class User {
 public:
     User(string n, string s, string tn, string a) : name(n), surname(s), telephoneNumber(tn), address(a){}
 
-    void addAccount(){
-        n_accounts++;
-    }
-
-
     const string &getName() const {
         return name;
     }
@@ -44,14 +39,12 @@ public:
     }
 
     vector<BankAccount*> bankaccount;
-    //BankAccount* bankaccount{nullptr};
 
 private:
     string name;
     string surname;
     string telephoneNumber;
     string address;
-    int n_accounts{0};
 };
 
 

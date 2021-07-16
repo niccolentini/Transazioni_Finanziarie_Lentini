@@ -51,7 +51,7 @@ public:
 
 
     void transazione (const bool& rec, BankAccount& b2,const float& amount){
-        Transaction t (number, b2.getNumber(), amount, "data", rec);
+        Transaction t (number, b2.getNumber(), amount, "data transazione", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);
 
@@ -77,7 +77,7 @@ public:
         cin>>result;
         if(result == "S"){
             ofstream tfile;
-            tfile.open("transazioni.txt");
+            tfile.open("transazioni.txt", ios::app);
             tfile<<"ID sender: "<<t.sender<<"\n ID receiver: "<<t.receiver<<"\n Amount: "<<t.amount<<"$"<<"\n Data: "<<t.data;
             tfile.close();
         }
@@ -101,6 +101,32 @@ public:
             return true;
         else
             return false;
+    }
+
+    void fileTransaction(){
+        ofstream tfile;
+        tfile.open("transazioni_conto.txt", ios::app);
+        for (auto itr : transazioni) {
+            tfile << "ID sender: " << itr.sender << "\n ID receiver: " << itr.receiver << "\n Amount: " << itr.amount << "$"
+                  << "\n Data: " << itr.data<<"\n\n";
+        }
+        tfile.close();
+        cout<<"File con lista delle transazioni generato con successo! \n Per visualizzarlo nel terminale premere 0, premere 1 altrimenti."<<endl;
+        int es;
+        cin>>es;
+        if(es = 0){
+            ifstream cfile;
+            cfile.open("transazioniconto.txt");
+            cout<<endl;
+            cout<<"Lettura file transazioniconto.txt ...\n"<<endl;
+            cout<<endl;
+
+            string line;
+            while( getline (cfile, line)){
+                cout<<line<<"\n"<<endl;
+            }
+            cfile.close();
+        }
     }
 
 private:

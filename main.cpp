@@ -57,7 +57,7 @@ int main() {
 
     bool doing = true;
     while (doing) {
-        cout << "Cosa vuoi fare? ricarica(0), transazione(1), prelievo(2), niente(3)" << endl;
+        cout << "Cosa vuoi fare? ricarica(0), transazione(1), prelievo(2), file transazioni conto(3), niente(4)" << endl;
         int a;
         cin >> a;
         switch (a) {
@@ -100,8 +100,10 @@ int main() {
                 cin >> in;
                 if (in == "i")
                     rec = true;
-               else
+               else if(in == "u")
                     rec = false;
+               else
+                   cout<<"Operazione non valida."<<endl;
 
                 itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr);
                 break;
@@ -121,74 +123,42 @@ int main() {
                 break;
             }
             case 3 : {
+                cout << "Inserire ID intestatario" << endl;
+                int n;
+                cin >> n;
+                auto itu = users.find(n);
+                cout<<"Di quale dei "<<itu->second->bankaccount.size()<<" conti vuoi ottenere la lista di transazioni? (partendo dallo 0)"<<endl;
+                int num;
+                cin>>num;
+                itu->second->bankaccount[num]->fileTransaction();
+            }
+            case 4 : {
                 doing = false;
                 break;
             }
         }
     }
 
-    cout<<"Riepilogo transazioni: "<<endl;
+    cout<<"Vuoi un riepilogo delle transazioni salvate? [S/n]"<<endl;
+    string risp;
+    cin>>risp;
+    if(risp == "S") {
+        ifstream tfile;
+        tfile.open("transazioni.txt");
+        cout << endl;
+        cout << "Lettura file transazioni.txt ..." << endl;
+        cout << endl;
 
-    ifstream tfile;
-    tfile.open("transazioni.txt");
-    cout<<endl;
-    cout<<"Lettura file transazioni.txt ..."<<endl;
-    cout<<endl;
-
-    string line;
-    while( getline (tfile, line)){
-        cout<<line<<endl;
+        string line;
+        while (getline(tfile, line)) {
+            cout << line << endl;
+        }
+        tfile.close();
     }
-    tfile.close();
+
 
     return 0;
 }
 
-    /* User user1 ("Paul", "James", "455589049", "21st Avenue");
-    User user2("Anna", "Lawry", "7768357509", "Fulton Street");
-    User user3("Larry", "Howard", "3351705576", "Libbey Avenue");
 
-    ofstream PaulJames;
-    PaulJames.open("paulj.txt");
-
-    PaulJames<<"User: Paul James "<<user1.getTelephoneNumber()<<" \n"<<endl;
-
-    Bank bank1("American Express", "3334445565", "New York");
-    Bank bank2("HSBC Bank", "44 1226 261010", "London, UK");
-
-    BankAccount bA1 = bank1.newBankAccount(user1);
-    BankAccount bA2 = bank1.newBankAccount(user2);
-    BankAccount bA3 = bank2.newBankAccount(user3);
-
-    bA1.recharge(1000);
-    bA2.recharge(3600);
-    bA3.recharge(2456.68);
-
-    PaulJames<<"Balance of "<<user1.getName()<<" "<<user1.getSurname()<<" = "<<bA1.getBalance()<<"\n"<<endl;
-
-    bA2.transazione(true, bA1, 500);
-    bA2.info();
-    cout<<endl;
-    bA1.info();
-    cout<<endl;
-
-    bA3.transazione(false, bA1, 400.50);
-    bA3.info();
-    cout<<endl;
-    bA1.info();
-
-    PaulJames<<"New Balance= "<<bA1.getBalance()<<"\n";
-    PaulJames.close();
-
-    ifstream PaulJ;
-    PaulJ.open("paulj.txt");
-    cout<<"Lettura file paulj.txt"<<endl;
-
-    string line;
-    while( getline (PaulJ, line)){
-        cout<<line<<endl;
-    }
-
-    PaulJ.close();
-*/
 

@@ -35,7 +35,6 @@ public:
         if(el != clients.end())
             clients.push_back(&nu);
 
-        nu.addAccount();
         return bA;
 
     }
