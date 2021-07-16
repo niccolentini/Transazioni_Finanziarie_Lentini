@@ -5,8 +5,8 @@
 #define TRANSAZIONIFINANZIARIE_BANKACCOUNT_H
 using namespace std;
 #include "vector"
-//#include "User.h"
 #include "iostream"
+#include "fstream"
 
 struct Transaction {
     Transaction(int s, int r, float a, string d, bool re){
@@ -26,9 +26,6 @@ struct Transaction {
 
 class BankAccount {
 public:
-//    BankAccount(User& ow, int n, float i = 0) : owner(&ow), number(n) {
-//        balance += i;
-//    }
 
     BankAccount(int n, float i = 0) : number(n) {
         balance += i;
@@ -37,17 +34,19 @@ public:
     void recharge(const float& r){
         if(r>0) {
             balance += r;
-            cout << "Charged Succesfully!" << endl;
+            cout << "Operazione conclusa con successo!" << endl;
         }
         else
-            cout<<"Charging not possible (value < 0)..."<<endl;
+            cout<<"Impossibile ricaricare (valore < 0)..."<<endl;
     }
 
     void withdraw(const float& r){
-        if(r <= balance)
+        if(r <= balance) {
             balance -= r;
+            cout<<"Operazione conclusa con successo!"<<endl;
+        }
         else
-            cout<<"You can't withdraw more than "<<balance<<"$"<<endl;
+            cout<<"Non puoi prelevare più di "<<balance<<"$"<<endl;
     }
 
 
@@ -57,16 +56,32 @@ public:
         b2.transazioni.push_back(t);
 
         if(rec) {
-            balance += amount;
-            b2.balance -= amount;
+            if(amount <= b2.getBalance()) {
+                balance += amount;
+                b2.balance -= amount;
+            }
+            else
+                cout<<"Credito insufficiente per effettuare la transazione"<<endl;
         }
         else{
-            balance -= amount;
-            b2.balance += amount;
+            if(amount <= balance) {
+                balance -= amount;
+                b2.balance += amount;
+            }
+            else
+                cout<<"Credito insufficiente per effettuare la transazione"<<endl;
         }
 
+        cout<<"Vuoi salvare la ricevuta su un file? [S/n]"<<endl;
+        string result;
+        cin>>result;
+        if(result == "S"){
+            ofstream tfile;
+            tfile.open("transazioni.txt");
+            tfile<<"ID sender: "<<t.sender<<"\n ID receiver: "<<t.receiver<<"\n Amount: "<<t.amount<<"$"<<"\n Data: "<<t.data;
+            tfile.close();
+        }
     }
-
 
     int getNumber() const {
         return number;
@@ -77,7 +92,6 @@ public:
     }
 
     void info(){
-        //cout<<"Bank Account owner: "<<owner->getName()<<" "<<owner->getSurname()<<endl;
         cout<<"Bank Account number: "<<number<<endl;
         cout<<"Balance: "<<balance<<endl;
     }

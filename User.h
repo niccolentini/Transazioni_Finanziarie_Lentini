@@ -44,6 +44,7 @@ public:
     }
 
     vector<BankAccount*> bankaccount;
+    //BankAccount* bankaccount{nullptr};
 
 private:
     string name;
