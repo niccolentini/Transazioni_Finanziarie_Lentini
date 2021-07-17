@@ -50,7 +50,7 @@ public:
     }
 
 
-    void transazione (const bool& rec, BankAccount& b2,const float& amount){
+    void transazione (const bool& rec, BankAccount& b2,const float& amount, bool recv){
         Transaction t (number, b2.getNumber(), amount, "data transazione", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);
@@ -72,10 +72,7 @@ public:
                 cout<<"Credito insufficiente per effettuare la transazione"<<endl;
         }
 
-        cout<<"Vuoi salvare la ricevuta su un file? [S/n]"<<endl;
-        string result;
-        cin>>result;
-        if(result == "S"){
+        if(recv){
             ofstream tfile;
             tfile.open("transazioni.txt", ios::app);
             tfile<<"ID sender: "<<t.sender<<"\n ID receiver: "<<t.receiver<<"\n Amount: "<<t.amount<<"$"<<"\n Data: "<<t.data;
@@ -128,11 +125,12 @@ public:
             cfile.close();
         }
     }
+    vector<Transaction> transazioni;
 
 private:
     const int number;
     float balance{0};
-    vector<Transaction> transazioni;
+
 };
 
 

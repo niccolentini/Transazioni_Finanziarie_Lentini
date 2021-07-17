@@ -92,20 +92,27 @@ int main() {
                 int num2;
                 cin>>num2;
 
-                cout << "Inserire importo della transazione e indicare se è in ingresso o uscita [i/u]" << endl;
+                cout << "Inserire importo della transazione, indicare se è in ingresso o uscita [i/u] e se vuole salvare la ricevuta su file [S/n]" << endl;
                 float tr;
                 string in;
+                string esit;
+                bool receiv;
                 bool rec;
                 cin >> tr;
                 cin >> in;
+                cin>>esit;
                 if (in == "i")
                     rec = true;
                else if(in == "u")
                     rec = false;
                else
                    cout<<"Operazione non valida."<<endl;
+               if(esit == "S")
+                   receiv = true;
+               else if(esit == "n")
+                   receiv = false;
 
-                itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr);
+                itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr, receiv);
                 break;
             }
             case 2 : {
