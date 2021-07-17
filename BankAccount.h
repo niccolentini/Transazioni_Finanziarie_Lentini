@@ -4,6 +4,8 @@
 #ifndef TRANSAZIONIFINANZIARIE_BANKACCOUNT_H
 #define TRANSAZIONIFINANZIARIE_BANKACCOUNT_H
 using namespace std;
+#include <utility>
+
 #include "vector"
 #include "iostream"
 #include "fstream"
@@ -111,7 +113,7 @@ public:
         cout<<"File con lista delle transazioni generato con successo! \n Per visualizzarlo nel terminale premere 0, premere 1 altrimenti."<<endl;
         int es;
         cin>>es;
-        if(es = 0){
+        if(es == 0){
             ifstream cfile;
             cfile.open("transazioniconto.txt");
             cout<<endl;

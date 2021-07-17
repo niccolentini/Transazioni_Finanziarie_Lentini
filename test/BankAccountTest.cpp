@@ -21,5 +21,10 @@ TEST(BankAccount, changeBalance){
     ASSERT_EQ(400, bA2.getBalance());
     bA2.withdraw(1000);
     ASSERT_EQ(400, bA2.getBalance());
+}
 
+TEST(BankAccount, getters){
+    BankAccount bA(12, 500);
+    ASSERT_EQ(12, bA.getNumber());
+    ASSERT_EQ(500, bA.getBalance());
 }

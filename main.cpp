@@ -64,11 +64,26 @@ int main() {
             case 0 : {
                 cout << "Inserire ID intestatario"<< endl;
                 int n;
-                cin >> n;
+                bool rep = true;
+                int i = users.size();
+                while(rep) {
+                    cin >> n;
+                    if (n > (i+1))
+                        cout <<"ID inesistente, riprovare."<< endl;
+                    else
+                        rep = false;
+                }
                 auto itu = users.find(n);
                 cout<<"Quale dei "<<itu->second->bankaccount.size()<<" vuoi ricaricare? (partendo dallo 0)"<<endl;
                 int num;
-                cin>>num;
+                bool repc = true;
+                while(repc) {
+                    cin >> num;
+                    if (num > itu->second->bankaccount.size())
+                        cout << "Conto inesistente, riprovare." << endl;
+                    else
+                        repc = false;
+                }
                 cout << "quanto vuoi ricaricare?" << endl;
                 float r;
                 cin >> r;
@@ -78,19 +93,47 @@ int main() {
             case 1 : {
                 cout << "Inserire ID del primo intestatario" << endl;
                 int n;
-                cin >> n;
+                bool rep = true;
+                int i = users.size();
+                while(rep) {
+                    cin >> n;
+                    if (n > (i+1))
+                        cout <<"ID inesistente, riprovare."<< endl;
+                    else
+                        rep = false;
+                }
                 auto itu = users.find(n);
                 cout<<"Quale dei "<<itu->second->bankaccount.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
                 int num;
-                cin>>num;
-
+                bool repc = true;
+                while(repc) {
+                    cin >> num;
+                    if (num > itu->second->bankaccount.size())
+                        cout << "Conto inesistente, riprovare." << endl;
+                    else
+                        repc = false;
+                }
                 cout << "Inserire ID del secondo intestatario" << endl;
                 int p;
-                cin >> p;
+                rep = true;
+                while(rep) {
+                    cin >> p;
+                    if (p > (i+1))
+                        cout <<"ID inesistente, riprovare."<< endl;
+                    else
+                        rep = false;
+                }
                 auto itu2 = users.find(p);
                 cout<<"Quale dei "<<itu2->second->bankaccount.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
                 int num2;
-                cin>>num2;
+                repc = true;
+                while(repc) {
+                    cin >> num2;
+                    if (num2 > itu->second->bankaccount.size())
+                        cout << "Conto inesistente, riprovare." << endl;
+                    else
+                        repc = false;
+                }
 
                 cout << "Inserire importo della transazione, indicare se è in ingresso o uscita [i/u] e se vuole salvare la ricevuta su file [S/n]" << endl;
                 float tr;
@@ -117,12 +160,27 @@ int main() {
             }
             case 2 : {
                 cout << "Inserire ID intestatario" << endl;
+                bool rep=true;
+                int i = users.size();
                 int n;
-                cin >> n;
+                while(rep){
+                    cin >> n;
+                    if (n > (i + 1))
+                        cout <<"ID inesistente, riprovare."<< endl;
+                    else
+                        rep = false;
+                }
                 auto itu = users.find(n);
                 cout<<"Da quale dei "<<itu->second->bankaccount.size()<<" conti vuoi prelevare? (partendo dallo 0)"<<endl;
                 int num;
-                cin>>num;
+                bool repc = true;
+                while(repc) {
+                    cin >> num;
+                    if (num > itu->second->bankaccount.size())
+                        cout << "Conto inesistente, riprovare." << endl;
+                    else
+                        repc = false;
+                }
                 cout << "Quanto vuoi prelevare?" << endl;
                 float r;
                 cin >> r;
@@ -131,12 +189,27 @@ int main() {
             }
             case 3 : {
                 cout << "Inserire ID intestatario" << endl;
+                bool rep=true;
+                int i = users.size();
                 int n;
-                cin >> n;
+                while(rep){
+                    cin >> n;
+                    if (n > (i + 1))
+                        cout <<"ID inesistente, riprovare."<< endl;
+                    else
+                        rep = false;
+                }
                 auto itu = users.find(n);
                 cout<<"Di quale dei "<<itu->second->bankaccount.size()<<" conti vuoi ottenere la lista di transazioni? (partendo dallo 0)"<<endl;
                 int num;
-                cin>>num;
+                bool repc = true;
+                while(repc) {
+                    cin >> num;
+                    if (num > itu->second->bankaccount.size())
+                        cout << "Conto inesistente, riprovare." << endl;
+                    else
+                        repc = false;
+                }
                 itu->second->bankaccount[num]->fileTransaction();
             }
             case 4 : {
