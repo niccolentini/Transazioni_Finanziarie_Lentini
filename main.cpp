@@ -6,54 +6,55 @@ using namespace std;
 #include "User.h"
 #include "algorithm"
 #include <fstream>
+#include "memory"
 
 int Bank::bankAccountNumber = 0;
 
 
 
 int main() {
-    map<int, User*> users;
-    map<string, Bank*> banks;
-    map<int, BankAccount*> bankaccounts;
+    map<int, shared_ptr<User>> users;
+    map<string, shared_ptr<Bank>> banks;
+    map<int, shared_ptr<BankAccount>> bankaccounts;
 
     int iduser = 0;
 
-    User user1 ("Paul", "James", "455589049", "21st Avenue");
+    shared_ptr<User> user1 = make_shared <User>("Paul", "James", "455589049", "21st Avenue");
     iduser++;
-    users.insert(make_pair(iduser, &user1));
-    User user2("Anna", "Lawry", "7768357509", "Fulton Street");
+    users.insert(make_pair(iduser, user1));
+    shared_ptr<User> user2 = make_shared <User>("Anna", "Lawry", "7768357509", "Fulton Street");
     iduser++;
-    users.insert(make_pair(iduser, &user2));
-    User user3("Larry", "Howard", "3351705576", "Libbey Avenue");
+    users.insert(make_pair(iduser, user2));
+    shared_ptr<User> user3 = make_shared <User>("Larry", "Howard", "3351705576", "Libbey Avenue");
     iduser++;
-    users.insert(make_pair(iduser, &user3));
+    users.insert(make_pair(iduser, user3));
 
-    cout<<"Users: "<<"\n"<<user1.getName()<<" "<<user1.getSurname()<<"\n"<<user2.getName()<<" "<<user2.getSurname()<<user3.getName()<<" "<<user3.getSurname()<<endl;
+    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<user3->getName()<<" "<<user3->getSurname()<<endl;
 
-    Bank bank1("AmericanExpress", "3334445565", "New York");
-    banks.insert(make_pair(bank1.getName(), &bank1));
-    Bank bank2("HSBC", "441226261010", "London, UK");
-    banks.insert(make_pair(bank2.getName(), &bank2));
-    Bank bank3("Fineco", "4449574839", "Roma");
-    banks.insert(make_pair(bank3.getName(), &bank3));
+    shared_ptr<Bank> bank1 = make_shared<Bank>("AmericanExpress", "3334445565", "New York");
+    banks.insert(make_pair(bank1->getName(), bank1));
+    shared_ptr<Bank> bank2 = make_shared<Bank>("HSBC", "441226261010", "London, UK");
+    banks.insert(make_pair(bank2->getName(), bank2));
+    shared_ptr<Bank> bank3 = make_shared<Bank>("Fineco", "4449574839", "Roma");
+    banks.insert(make_pair(bank3->getName(), bank3));
 
 
 
-    BankAccount bA1 = bank1.newBankAccount(user1, 500);
+    BankAccount bA1 = bank1->newBankAccount(*user1, 500);
     bankaccounts.insert(make_pair(bA1.getNumber(), &bA1));
-    BankAccount bA2 = bank1.newBankAccount(user2, 500);
+    BankAccount bA2 = bank1->newBankAccount(*user2, 500);
     bankaccounts.insert(make_pair(bA2.getNumber(), &bA2));
-    BankAccount bA3 = bank2.newBankAccount(user3, 500);
+    BankAccount bA3 = bank2->newBankAccount(*user3, 500);
     bankaccounts.insert(make_pair(bA3.getNumber(), &bA3));
-    BankAccount bA4 = bank2.newBankAccount(user1, 500);
+    BankAccount bA4 = bank2->newBankAccount(*user1, 500);
     bankaccounts.insert(make_pair(bA4.getNumber(), &bA4));
-    BankAccount bA5 = bank3.newBankAccount(user1, 500);
+    BankAccount bA5 = bank3->newBankAccount(*user1, 500);
     bankaccounts.insert(make_pair(bA5.getNumber(), &bA5));
-    BankAccount bA6 = bank3.newBankAccount(user2, 500);
+    BankAccount bA6 = bank3->newBankAccount(*user2, 500);
     bankaccounts.insert(make_pair(bA6.getNumber(), &bA6));
 
-    cout<<"Users: "<<"\n"<<user1.getName()<<" "<<user1.getSurname()<<", bank account number: "<<user1.bankaccount.size()<<"\n"<<user2.getName()<<" "<<user2.getSurname()<<", bank account number: "<<user2.bankaccount.size()<<"\n"<<user3.getName()<<" "<<user3.getSurname()<<", bank account number: "<<user1.bankaccount.size()<<endl;
-    cout<<"Banks: "<<"\n"<<bank1.getName()<<"\n"<<bank2.getName()<<"\n"<<bank3.getName()<<endl;
+    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->bankaccount.size()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->bankaccount.size()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user1->bankaccount.size()<<endl;
+    cout<<"Banks: "<<"\n"<<bank1->getName()<<"\n"<<bank2->getName()<<"\n"<<bank3->getName()<<endl;
 
     bool doing = true;
     while (doing) {
@@ -68,7 +69,7 @@ int main() {
                 int i = users.size();
                 while(rep) {
                     cin >> n;
-                    if (n > (i+1))
+                    if (n > (i))
                         cout <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -97,7 +98,7 @@ int main() {
                 int i = users.size();
                 while(rep) {
                     cin >> n;
-                    if (n > (i+1))
+                    if (n > (i))
                         cout <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -118,7 +119,7 @@ int main() {
                 rep = true;
                 while(rep) {
                     cin >> p;
-                    if (p > (i+1))
+                    if (p > (i))
                         cout <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -156,6 +157,7 @@ int main() {
                    receiv = false;
 
                 itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr, receiv);
+                cout<<"Operazione eseguita con successo!\n"<<endl;
                 break;
             }
             case 2 : {
@@ -165,7 +167,7 @@ int main() {
                 int n;
                 while(rep){
                     cin >> n;
-                    if (n > (i + 1))
+                    if (n > (i))
                         cout <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -194,7 +196,7 @@ int main() {
                 int n;
                 while(rep){
                     cin >> n;
-                    if (n > (i + 1))
+                    if (n > (i))
                         cout <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
