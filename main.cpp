@@ -68,7 +68,7 @@ int main() {
                 int i = users.size();
                 while(rep) {
                     cin >> n;
-                    if (n > (i))
+                    if (n > (i) || n==0)
                         cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -79,7 +79,7 @@ int main() {
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size())
+                    if (num > itu->second->bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -97,7 +97,7 @@ int main() {
                 int i = users.size();
                 while(rep) {
                     cin >> n;
-                    if (n > (i))
+                    if (n > (i) || n==0)
                         cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -108,7 +108,7 @@ int main() {
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size())
+                    if (num > itu->second->bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -118,7 +118,7 @@ int main() {
                 rep = true;
                 while(rep) {
                     cin >> p;
-                    if (p > (i))
+                    if (p > (i) || p==0)
                         cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -129,7 +129,7 @@ int main() {
                 repc = true;
                 while(repc) {
                     cin >> num2;
-                    if (num2 > itu->second->bankaccount.size())
+                    if (num2 > itu->second->bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -166,7 +166,7 @@ int main() {
                 int n;
                 while(rep){
                     cin >> n;
-                    if (n > (i))
+                    if (n > (i) || n==0)
                         cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -177,7 +177,7 @@ int main() {
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size())
+                    if (num > itu->second->bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -195,7 +195,7 @@ int main() {
                 int n;
                 while(rep){
                     cin >> n;
-                    if (n > (i))
+                    if (n > (i) || n==0)
                         cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
@@ -206,7 +206,7 @@ int main() {
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size())
+                    if (num > itu->second->bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;

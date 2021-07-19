@@ -39,10 +39,6 @@ public:
         return bA;
     }
 
-    void removeBankAccount(int & nBA){
-        bankAccounts.erase(nBA);
-    }
-
     const string &getName() const {
         return name;
     }

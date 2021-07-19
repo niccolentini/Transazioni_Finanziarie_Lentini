@@ -40,12 +40,13 @@ public:
     }
 
     vector<shared_ptr<BankAccount>> bankaccount;
-
 private:
     string name;
     string surname;
     string telephoneNumber;
     string address;
+
+
 };
 
 
