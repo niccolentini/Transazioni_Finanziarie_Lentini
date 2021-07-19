@@ -29,7 +29,7 @@ struct Transaction {
 class BankAccount {
 public:
 
-    BankAccount(const int& n,const float& i = 0) : number(n) {
+    explicit BankAccount(const int& n,const float& i = 0) : number(n) {
         balance += i;
     }
 
@@ -103,12 +103,12 @@ public:
         return balance;
     }
 
-    void info(){
+    void info() const{
         cout<<"Bank Account number: "<<number<<endl;
         cout<<"Balance: "<<balance<<endl;
     }
 
-    bool operator ==(int n){
+    bool operator ==(int n) const{
         if(number == n)
             return true;
         else
