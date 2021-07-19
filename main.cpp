@@ -5,7 +5,6 @@ using namespace std;
 #include "Bank.h"
 #include "User.h"
 #include "algorithm"
-#include <fstream>
 #include "memory"
 
 int Bank::bankAccountNumber = 0;
@@ -88,7 +87,7 @@ int main() {
                 cout << "quanto vuoi ricaricare?" << endl;
                 float r;
                 cin >> r;
-                itu->second->bankaccount[num]->recharge(r);
+                cout<<itu->second->bankaccount[num]->recharge(r)<<"\n"<<endl;
                 break;
             }
             case 1 : {
@@ -156,8 +155,8 @@ int main() {
                else if(esit == "n")
                    receiv = false;
 
-                itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr, receiv);
-                cout<<"Operazione eseguita con successo!\n"<<endl;
+                cout<<itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr, receiv)<<"\n"<<endl;
+
                 break;
             }
             case 2 : {
@@ -186,7 +185,7 @@ int main() {
                 cout << "Quanto vuoi prelevare?" << endl;
                 float r;
                 cin >> r;
-                itu->second->bankaccount[num]->withdraw(r);
+                cout<<itu->second->bankaccount[num]->withdraw(r)<<"\n"<<endl;
                 break;
             }
             case 3 : {
@@ -237,8 +236,6 @@ int main() {
         }
         tfile.close();
     }
-
-
     return 0;
 }
 
