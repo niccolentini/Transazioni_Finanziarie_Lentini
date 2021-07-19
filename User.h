@@ -7,10 +7,11 @@
 using namespace std;
 #include "string"
 #include "BankAccount.h"
+#include "memory"
 
 class User {
 public:
-    User(string n, string s, string tn, string a) : name(n), surname(s), telephoneNumber(tn), address(a){}
+    User(const string& n, const string& s, const string& tn, const  string& a) : name(n), surname(s), telephoneNumber(tn), address(a){}
 
     const string &getName() const {
         return name;
@@ -38,7 +39,7 @@ public:
         User::address = address;
     }
 
-    vector<BankAccount*> bankaccount;
+    vector<shared_ptr<BankAccount>> bankaccount;
 
 private:
     string name;

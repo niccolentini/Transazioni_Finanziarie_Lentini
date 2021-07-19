@@ -13,10 +13,11 @@ using namespace std;
 #include "map"
 #include "BankAccount.h"
 #include "algorithm"
+#include "memory"
 
 class Bank {
 public:
-    Bank(string n, string tn, string a) : name(n), telephoneNumber(tn) {
+    Bank(const string& n,const string& tn,const string& a) : name(n), telephoneNumber(tn) {
         addresses.push_back(a);
     }
 
@@ -28,15 +29,14 @@ public:
         bankAccountNumber++;
         BankAccount bA(bankAccountNumber, init);
         bankAccounts.insert(make_pair(bankAccountNumber, bA));
-
-        nu.bankaccount.push_back(&bA);
+        auto bankptr = std::make_shared<BankAccount>(bA);
+        nu.bankaccount.push_back(bankptr);
 
         auto el = find(clients.begin(), clients.end(), &nu);
-        if(el != clients.end())
+        if(el != clients.end()) {
             clients.push_back(&nu);
-
+        }
         return bA;
-
     }
 
     void removeBankAccount(int & nBA){

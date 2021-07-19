@@ -29,7 +29,7 @@ struct Transaction {
 class BankAccount {
 public:
 
-    BankAccount(int n, float i = 0) : number(n) {
+    BankAccount(const int& n,const float& i = 0) : number(n) {
         balance += i;
     }
 
@@ -60,7 +60,7 @@ public:
     }
 
 
-    string transazione (const bool& rec, BankAccount& b2,const float& amount, bool recv){
+    string transazione (const bool& rec, BankAccount& b2,const float& amount, const bool& recv){
         Transaction t (number, b2.getNumber(), amount, "data transazione", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);

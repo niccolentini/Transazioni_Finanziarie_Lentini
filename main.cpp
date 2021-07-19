@@ -69,7 +69,7 @@ int main() {
                 while(rep) {
                     cin >> n;
                     if (n > (i))
-                        cout <<"ID inesistente, riprovare."<< endl;
+                        cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
                 }
@@ -80,7 +80,7 @@ int main() {
                 while(repc) {
                     cin >> num;
                     if (num > itu->second->bankaccount.size())
-                        cout << "Conto inesistente, riprovare." << endl;
+                        cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
                 }
@@ -98,7 +98,7 @@ int main() {
                 while(rep) {
                     cin >> n;
                     if (n > (i))
-                        cout <<"ID inesistente, riprovare."<< endl;
+                        cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
                 }
@@ -109,7 +109,7 @@ int main() {
                 while(repc) {
                     cin >> num;
                     if (num > itu->second->bankaccount.size())
-                        cout << "Conto inesistente, riprovare." << endl;
+                        cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
                 }
@@ -119,7 +119,7 @@ int main() {
                 while(rep) {
                     cin >> p;
                     if (p > (i))
-                        cout <<"ID inesistente, riprovare."<< endl;
+                        cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
                 }
@@ -130,7 +130,7 @@ int main() {
                 while(repc) {
                     cin >> num2;
                     if (num2 > itu->second->bankaccount.size())
-                        cout << "Conto inesistente, riprovare." << endl;
+                        cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
                 }
@@ -149,7 +149,7 @@ int main() {
                else if(in == "u")
                     rec = false;
                else
-                   cout<<"Operazione non valida."<<endl;
+                   cerr<<"Operazione non valida."<<endl;
                if(esit == "S")
                    receiv = true;
                else if(esit == "n")
@@ -167,7 +167,7 @@ int main() {
                 while(rep){
                     cin >> n;
                     if (n > (i))
-                        cout <<"ID inesistente, riprovare."<< endl;
+                        cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
                 }
@@ -178,7 +178,7 @@ int main() {
                 while(repc) {
                     cin >> num;
                     if (num > itu->second->bankaccount.size())
-                        cout << "Conto inesistente, riprovare." << endl;
+                        cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
                 }
@@ -196,7 +196,7 @@ int main() {
                 while(rep){
                     cin >> n;
                     if (n > (i))
-                        cout <<"ID inesistente, riprovare."<< endl;
+                        cerr <<"ID inesistente, riprovare."<< endl;
                     else
                         rep = false;
                 }
@@ -207,7 +207,7 @@ int main() {
                 while(repc) {
                     cin >> num;
                     if (num > itu->second->bankaccount.size())
-                        cout << "Conto inesistente, riprovare." << endl;
+                        cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
                 }
