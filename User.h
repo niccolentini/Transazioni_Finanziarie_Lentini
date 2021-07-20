@@ -17,9 +17,6 @@ public:
         return name;
     }
 
-    void setName(const string &Name) {
-        User::name = Name;
-    }
     const string &getSurname() const {
         return surname;
     }
@@ -29,14 +26,9 @@ public:
     const string &getTelephoneNumber() const {
         return telephoneNumber;
     }
-    void setTelephoneNumber(const string &TelephoneNumber) {
-        User::telephoneNumber = TelephoneNumber;
-    }
+
     const string &getAddress() const {
         return address;
-    }
-    void setAddress(const string &Address) {
-        User::address = Address;
     }
 
     vector<shared_ptr<BankAccount>>& getBAVect() {

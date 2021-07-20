@@ -21,10 +21,6 @@ public:
         addresses.push_back(a);
     }
 
-    void addAddress(string a){
-        addresses.push_back(a);
-    }
-
     BankAccount newBankAccount (User & nu, float init = 0){
         bankAccountNumber++;
         BankAccount bA(bankAccountNumber, init);
@@ -42,15 +38,6 @@ public:
     const string &getName() const {
         return name;
     }
-
-    const string &getTelephoneNumber() const {
-        return telephoneNumber;
-    }
-
-    const vector<string> &getAddresses() const {
-        return addresses;
-    }
-
 
 private:
     string name;
