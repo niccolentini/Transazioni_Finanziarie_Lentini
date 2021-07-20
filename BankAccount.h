@@ -140,7 +140,7 @@ public:
             cfile.close();
         }
     }
-    const vector<Transaction>& getVectorTransaction(){
+    const vector<Transaction>& getVectorTransaction() const{
         return transazioni;
     }
 private:
