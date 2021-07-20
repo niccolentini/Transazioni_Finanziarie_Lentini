@@ -176,7 +176,7 @@ int main() {
                     auto bA = itu->second->findBankAccount(num);
                     bA->loadTransactions();
                 }catch (out_of_range& e){
-                    cout<<e.what()<<" Operazione annullata."<<endl;
+                    cerr<<e.what()<<" Operazione annullata."<<endl;
                 }
                 break;
             }
