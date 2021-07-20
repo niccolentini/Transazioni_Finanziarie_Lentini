@@ -28,7 +28,7 @@ int main() {
     iduser++;
     users.insert(make_pair(iduser, user3));
 
-    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<user3->getName()<<" "<<user3->getSurname()<<endl;
+    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<endl;
 
     shared_ptr<Bank> bank1 = make_shared<Bank>("AmericanExpress", "3334445565", "New York");
     banks.insert(make_pair(bank1->getName(), bank1));
@@ -52,7 +52,7 @@ int main() {
     BankAccount bA6 = bank3->newBankAccount(*user2, 500);
     bankaccounts.insert(make_pair(bA6.getNumber(), &bA6));
 
-    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->getBAVect().size()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->getBAVect().size()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user1->getBAVect().size()<<endl;
+    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->getBAVect().size()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->getBAVect().size()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user3->getBAVect().size()<<endl;
     cout<<"Banks: "<<"\n"<<bank1->getName()<<"\n"<<bank2->getName()<<"\n"<<bank3->getName()<<endl;
 
     bool doing = true;

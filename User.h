@@ -17,26 +17,26 @@ public:
         return name;
     }
 
-    void setName(const string &name) {
-        User::name = name;
+    void setName(const string &Name) {
+        User::name = Name;
     }
     const string &getSurname() const {
         return surname;
     }
-    void setSurname(const string &surname) {
-        User::surname = surname;
+    void setSurname(const string &Surname) {
+        User::surname = Surname;
     }
     const string &getTelephoneNumber() const {
         return telephoneNumber;
     }
-    void setTelephoneNumber(const string &telephoneNumber) {
-        User::telephoneNumber = telephoneNumber;
+    void setTelephoneNumber(const string &TelephoneNumber) {
+        User::telephoneNumber = TelephoneNumber;
     }
     const string &getAddress() const {
         return address;
     }
-    void setAddress(const string &address) {
-        User::address = address;
+    void setAddress(const string &Address) {
+        User::address = Address;
     }
 
     vector<shared_ptr<BankAccount>>& getBAVect() {
