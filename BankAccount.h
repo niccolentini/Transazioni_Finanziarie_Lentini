@@ -33,47 +33,40 @@ public:
         balance += i;
     }
 
-    string recharge(const float& r){
-        string result;
+    void recharge(const float& r){
         if(r>0) {
             balance += r;
-            result = "Operazione conclusa con successo!";
+            cout<<"Operazione conclusa con successo!"<<endl;
         }
         else
-            result = "Impossibile ricaricare (valore < 0)...";
-
-        return result;
+            throw out_of_range("Non è possibile ricaricare.");
     }
 
-    string withdraw(const float& r){
-        string result;
+    void withdraw(const float& r){
         if(r <= balance && r>0) {
             balance -= r;
-            result="Operazione conclusa con successo!";
+            cout<<"Operazione conclusa con successo!"<<endl;
         }
         else if(r<0)
-            result = "Impossibile eseguire (valore < 0)...";
+            throw out_of_range("Impossibile eseguire (valore < 0).");
         else
-            result = "Impossibile continuare, fuori limite.";
-
-    return result;
+            throw out_of_range("Impossibile continuare, fuori limite.");
     }
 
 
-    string transazione (const bool& rec, BankAccount& b2,const float& amount, const bool& recv){
-        Transaction t (number, b2.getNumber(), amount, "data transazione", rec);
+    void nuovaTransazione (bool rec, BankAccount& b2, float amount, bool recv){
+        Transaction t (number, b2.getBankAccountNumber(), amount, "data nuovaTransazione", rec);
         transazioni.push_back(t);
         b2.transazioni.push_back(t);
-        string result = "Operazione eseguita con successo!";
         if(rec) {
             if(amount <= b2.getBalance() && amount>0) {
                 balance += amount;
                 b2.balance -= amount;
             }
             else if(amount<0)
-                result = "Impossibile eseguire (valore < 0)...";
+                throw out_of_range("Impossibile eseguire (valore < 0).");
             else
-                result = "Credito insufficiente per effettuare la transazione";
+                throw out_of_range("Credito insufficiente per effettuare la nuovaTransazione");
         }
         else{
             if(amount <= balance && amount>0) {
@@ -81,9 +74,9 @@ public:
                 b2.balance += amount;
             }
             else if(amount<0)
-                result = "Impossibile eseguire (valore < 0)...";
+                throw out_of_range("Impossibile eseguire (valore < 0)...");
             else
-                result = "Credito insufficiente per effettuare la transazione";
+                throw out_of_range("Credito insufficiente per effettuare la nuovaTransazione");
         }
 
         if(recv){
@@ -92,10 +85,9 @@ public:
             tfile<<"ID sender: "<<t.sender<<"\n ID receiver: "<<t.receiver<<"\n Amount: "<<t.amount<<"$"<<"\n Data: "<<t.data<<"\n\n";
             tfile.close();
         }
-        return result;
     }
 
-    int getNumber() const {
+    int getBankAccountNumber() const {
         return number;
     }
 
@@ -115,7 +107,7 @@ public:
             return false;
     }
 
-    void fileTransaction(){
+    void loadTransactions(){
         ofstream tfile;
         tfile.open("transazioni_conto.txt", ios::app);
         for (auto itr : transazioni) {
@@ -130,9 +122,6 @@ public:
             ifstream cfile;
             cfile.open("transazioni_conto.txt");
             cout<<endl;
-            cout<<"Lettura file transazioni_conto.txt ...\n"<<endl;
-            cout<<endl;
-
             string line;
             while( getline (cfile, line)){
                 cout<<line<<endl;
@@ -140,8 +129,9 @@ public:
             cfile.close();
         }
     }
-    const vector<Transaction>& getVectorTransaction() const{
-        return transazioni;
+
+    int vectorTransactionSize() const{
+        return transazioni.size();
     }
 private:
     const int number;

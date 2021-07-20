@@ -6,6 +6,8 @@ using namespace std;
 #include "User.h"
 #include "algorithm"
 #include "memory"
+#include "exception"
+#include "stdexcept"
 
 int Bank::bankAccountNumber = 0;
 
@@ -40,183 +42,142 @@ int main() {
 
 
     BankAccount bA1 = bank1->newBankAccount(*user1, 500);
-    bankaccounts.insert(make_pair(bA1.getNumber(), &bA1));
+    bankaccounts.insert(make_pair(bA1.getBankAccountNumber(), &bA1));
     BankAccount bA2 = bank1->newBankAccount(*user2, 500);
-    bankaccounts.insert(make_pair(bA2.getNumber(), &bA2));
+    bankaccounts.insert(make_pair(bA2.getBankAccountNumber(), &bA2));
     BankAccount bA3 = bank2->newBankAccount(*user3, 500);
-    bankaccounts.insert(make_pair(bA3.getNumber(), &bA3));
+    bankaccounts.insert(make_pair(bA3.getBankAccountNumber(), &bA3));
     BankAccount bA4 = bank2->newBankAccount(*user1, 500);
-    bankaccounts.insert(make_pair(bA4.getNumber(), &bA4));
+    bankaccounts.insert(make_pair(bA4.getBankAccountNumber(), &bA4));
     BankAccount bA5 = bank3->newBankAccount(*user1, 500);
-    bankaccounts.insert(make_pair(bA5.getNumber(), &bA5));
+    bankaccounts.insert(make_pair(bA5.getBankAccountNumber(), &bA5));
     BankAccount bA6 = bank3->newBankAccount(*user2, 500);
-    bankaccounts.insert(make_pair(bA6.getNumber(), &bA6));
+    bankaccounts.insert(make_pair(bA6.getBankAccountNumber(), &bA6));
 
-    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->getBAVect().size()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->getBAVect().size()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user3->getBAVect().size()<<endl;
+    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->bankAccountVectorSize()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->bankAccountVectorSize()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user3->bankAccountVectorSize()<<endl;
     cout<<"Banks: "<<"\n"<<bank1->getName()<<"\n"<<bank2->getName()<<"\n"<<bank3->getName()<<endl;
 
     bool doing = true;
     while (doing) {
-        cout << "Cosa vuoi fare? ricarica(0), transazione(1), prelievo(2), file transazioni conto(3), niente(4)" << endl;
+        cout << "Cosa vuoi fare? ricarica(0), nuovaTransazione(1), prelievo(2), file transazioni conto(3), niente(4)" << endl;
         int a;
         cin >> a;
         switch (a) {
             case 0 : {
-                cout << "Inserire ID intestatario"<< endl;
-                int n;
-                bool rep = true;
-                int i = users.size();
-                while(rep) {
+                try {
+                    cout << "Inserire ID intestatario" << endl;
+                    int n;
+                    int i = users.size();
                     cin >> n;
-                    if (n > (i) || n<=0)
-                        cerr <<"ID inesistente, riprovare."<< endl;
-                    else
-                        rep = false;
-                }
-                auto itu = users.find(n);
-                auto Bankaccount = itu->second->getBAVect();
-                cout<<"Quale dei "<<Bankaccount.size()<<" vuoi ricaricare? (partendo dallo 0)"<<endl;
-                int num;
-                bool repc = true;
-                while(repc) {
+                    if (n > (i) || n <= 0)
+                        throw std::out_of_range("ID  inesistente.");
+                    auto itu = users.find(n);
+                    cout << "Quale dei " << itu->second->bankAccountVectorSize()
+                         << " vuoi ricaricare? (partendo dallo 0)" << endl;
+                    int num;
                     cin >> num;
-                    if (num > Bankaccount.size() || num<0)
-                        cerr << "Conto inesistente, riprovare." << endl;
-                    else
-                        repc = false;
+                    auto bA = itu->second->findBankAccount(num);
+                    cout << "quanto vuoi ricaricare?" << endl;
+                    float r;
+                    cin >> r;
+                    bA->recharge(r);
+                } catch (std::out_of_range& e){
+                    cerr<<e.what()<<" Operazione annullata."<<endl;
                 }
-                cout << "quanto vuoi ricaricare?" << endl;
-                float r;
-                cin >> r;
-                cout<<Bankaccount[num]->recharge(r)<<"\n"<<endl;
                 break;
             }
             case 1 : {
-                cout << "Inserire ID del primo intestatario" << endl;
-                int n;
-                bool rep = true;
-                int i = users.size();
-                while(rep) {
+                try {
+                    cout << "Inserire ID del primo intestatario" << endl;
+                    int n;
+                    int i = users.size();
                     cin >> n;
-                    if (n > (i) || n<=0)
-                        cerr <<"ID inesistente, riprovare."<< endl;
-                    else
-                        rep = false;
-                }
-                auto itu = users.find(n);
-                auto Bankaccount1 = itu->second->getBAVect();
-                cout<<"Quale dei "<<Bankaccount1.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
-                int num;
-                bool repc = true;
-                while(repc) {
+                    if (n > (i) || n <= 0)
+                        throw out_of_range("ID inesistente.");
+                    auto itu = users.find(n);
+                    cout << "Quale dei " << itu->second->bankAccountVectorSize()
+                         << " conti vuoi utilizzare? (partendo dallo 0)" << endl;
+                    int num;
                     cin >> num;
-                    if (num > Bankaccount1.size() || num<0)
-                        cerr << "Conto inesistente, riprovare." << endl;
-                    else
-                        repc = false;
-                }
-                cout << "Inserire ID del secondo intestatario" << endl;
-                int p;
-                rep = true;
-                while(rep) {
+                    auto bA = itu->second->findBankAccount(num);
+                    cout << "Inserire ID del secondo intestatario" << endl;
+                    int p;
                     cin >> p;
-                    if (p > (i) || p<=0)
-                        cerr <<"ID inesistente, riprovare."<< endl;
-                    else
-                        rep = false;
-                }
-                auto itu2 = users.find(p);
-                auto Bankaccount2 = itu2->second->getBAVect();
-                cout<<"Quale dei "<<Bankaccount2.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
-                int num2;
-                repc = true;
-                while(repc) {
+                    if (p > (i) || p <= 0)
+                        throw out_of_range("ID inesistente.");
+                    auto itu2 = users.find(p);
+                    cout << "Quale dei " << itu2->second->bankAccountVectorSize()
+                         << " conti vuoi utilizzare? (partendo dallo 0)" << endl;
+                    int num2;
                     cin >> num2;
-                    if (num2 > Bankaccount2.size() || num<0)
-                        cerr << "Conto inesistente, riprovare." << endl;
+                    auto bA2 = itu2->second->findBankAccount(num2);
+
+                    cout<< "Inserire importo della transazione, indicare se è in ingresso o uscita [i/u] e se vuole salvare la ricevuta su file [S/n]"<< endl;
+                    float tr;
+                    string in;
+                    string esit;
+                    bool receiv;
+                    bool rec;
+                    cin >> tr;
+                    cin >> in;
+                    cin >> esit;
+                    if (in == "i")
+                        rec = true;
+                    else if (in == "u")
+                        rec = false;
                     else
-                        repc = false;
+                        cerr << "Operazione non valida." << endl;
+                    if (esit == "S")
+                        receiv = true;
+                    else if (esit == "n")
+                        receiv = false;
+
+                    bA->nuovaTransazione(rec, *bA2, tr, receiv);
+                }catch (out_of_range& e){
+                    cerr<<e.what()<<"Operazione annullata."<<endl;
                 }
-
-                cout << "Inserire importo della transazione, indicare se è in ingresso o uscita [i/u] e se vuole salvare la ricevuta su file [S/n]" << endl;
-                float tr;
-                string in;
-                string esit;
-                bool receiv;
-                bool rec;
-                cin >> tr;
-                cin >> in;
-                cin>>esit;
-                if (in == "i")
-                    rec = true;
-               else if(in == "u")
-                    rec = false;
-               else
-                   cerr<<"Operazione non valida."<<endl;
-               if(esit == "S")
-                   receiv = true;
-               else if(esit == "n")
-                   receiv = false;
-
-                cout<<Bankaccount1[num]->transazione(rec, *(Bankaccount2[num2]), tr, receiv)<<"\n"<<endl;
 
                 break;
             }
             case 2 : {
-                cout << "Inserire ID intestatario" << endl;
-                bool rep=true;
-                int i = users.size();
-                int n;
-                while(rep){
+                try {
+                    cout << "Inserire ID intestatario" << endl;
+                    int i = users.size();
+                    int n;
                     cin >> n;
-                    if (n > (i) || n<=0)
-                        cerr <<"ID inesistente, riprovare."<< endl;
-                    else
-                        rep = false;
-                }
-                auto itu = users.find(n);
-                auto Bankaccount = itu->second->getBAVect();
-                cout<<"Da quale dei "<<Bankaccount.size()<<" conti vuoi prelevare? (partendo dallo 0)"<<endl;
-                int num;
-                bool repc = true;
-                while(repc) {
+                    if (n > (i) || n <= 0)
+                        throw out_of_range("ID inesistente.");
+                    auto itu = users.find(n);
+                    cout << "Da quale dei " << itu->second->bankAccountVectorSize() << " conti vuoi prelevare? (partendo dallo 0)"
+                         << endl;
+                    int num;
                     cin >> num;
-                    if (num > Bankaccount.size() || num<0)
-                        cerr << "Conto inesistente, riprovare." << endl;
-                    else
-                        repc = false;
+                    auto bA = itu->second->findBankAccount(num);
+                    cout << "Quanto vuoi prelevare?" << endl;
+                    float r;
+                    cin >> r;
+                    bA->withdraw(r);
+                }catch (out_of_range& e){
+                    cerr<<e.what()<<"Operazione annullata."<<endl;
                 }
-                cout << "Quanto vuoi prelevare?" << endl;
-                float r;
-                cin >> r;
-                cout<<Bankaccount[num]->withdraw(r)<<"\n"<<endl;
                 break;
             }
             case 3 : {
-                cout << "Inserire ID intestatario" << endl;
-                bool rep=true;
-                int i = users.size();
-                int n;
-                while(rep){
-                    cin >> n;
-                    if (n > (i) || n<=0)
-                        cerr <<"ID inesistente, riprovare."<< endl;
-                    else
-                        rep = false;
+                try {
+                    cout << "Inserire ID intestatario" << endl;
+                    int i = users.size();
+                    int n;
+                    if (n > (i) || n <= 0)
+                        throw out_of_range("ID inesistente, riprovare.");
+                    auto itu = users.find(n);
+                    cout << "Di quale dei " << itu->second->bankAccountVectorSize()
+                         << " conti vuoi ottenere la lista di transazioni? (partendo dallo 0)" << endl;
+                    int num;
+                    auto bA = itu->second->findBankAccount(num);
+                    bA->loadTransactions();
+                }catch (out_of_range& e){
+                    cout<<e.what()<<" Operazione annullata."<<endl;
                 }
-                auto itu = users.find(n);
-                auto Bankaccount = itu->second->getBAVect();
-                cout<<"Di quale dei "<<Bankaccount.size()<<" conti vuoi ottenere la lista di transazioni? (partendo dallo 0)"<<endl;
-                int num;
-                bool repc = true;
-                while(repc) {
-                    cin >> num;
-                    if (num > Bankaccount.size() || num<0)
-                        cerr << "Conto inesistente, riprovare." << endl;
-                    else
-                        repc = false;
-                }
-                Bankaccount[num]->fileTransaction();
                 break;
             }
             case 4 : {

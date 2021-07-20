@@ -31,12 +31,18 @@ public:
         return address;
     }
 
-    vector<shared_ptr<BankAccount>>& getBAVect() {
-        return bankaccount;
-    };
-
     void addBankAccount (const shared_ptr<BankAccount>& bA){
         bankaccount.push_back(bA);
+    }
+
+    int bankAccountVectorSize(){
+        return bankaccount.size();
+    }
+
+    shared_ptr<BankAccount>& findBankAccount(int n){
+        if (n > bankaccount.size() || n < 0)
+            throw out_of_range("Conto inesistente.");
+        return bankaccount[n];
     }
 
 private:
