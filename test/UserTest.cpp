@@ -3,10 +3,12 @@
 //
 #include "../User.h"
 #include <gtest/gtest.h>
+#include "../BankAccount.h"
 
 TEST(User, noAccountStart){
     User u("user","test","12345","test");
-    ASSERT_EQ(0, u.bankaccount.size());
+    auto Bankaccount = u.getBAVect();
+    ASSERT_EQ(0, Bankaccount.size());
 }
 
 TEST(User, getters){

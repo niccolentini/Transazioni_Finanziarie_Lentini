@@ -39,14 +39,21 @@ public:
         User::address = address;
     }
 
-    vector<shared_ptr<BankAccount>> bankaccount;
+    vector<shared_ptr<BankAccount>>& getBAVect() {
+        return bankaccount;
+    };
+
+    void addBankAccount (const shared_ptr<BankAccount>& bA){
+        bankaccount.push_back(bA);
+    }
+
 private:
     string name;
     string surname;
     string telephoneNumber;
     string address;
 
-
+    vector<shared_ptr<BankAccount>> bankaccount;
 };
 
 

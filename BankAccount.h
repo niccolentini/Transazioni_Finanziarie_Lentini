@@ -128,23 +128,25 @@ public:
         cin>>es;
         if(es == 0){
             ifstream cfile;
-            cfile.open("transazioniconto.txt");
+            cfile.open("transazioni_conto.txt");
             cout<<endl;
-            cout<<"Lettura file transazioniconto.txt ...\n"<<endl;
+            cout<<"Lettura file transazioni_conto.txt ...\n"<<endl;
             cout<<endl;
 
             string line;
             while( getline (cfile, line)){
-                cout<<line<<"\n"<<endl;
+                cout<<line<<endl;
             }
             cfile.close();
         }
     }
-    vector<Transaction> transazioni;
+    const vector<Transaction>& getVectorTransaction(){
+        return transazioni;
+    }
 private:
     const int number;
     float balance{0};
-
+    vector<Transaction> transazioni;
 };
 
 

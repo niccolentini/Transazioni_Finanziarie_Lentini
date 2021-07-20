@@ -30,7 +30,7 @@ public:
         BankAccount bA(bankAccountNumber, init);
         bankAccounts.insert(make_pair(bankAccountNumber, bA));
         auto bankptr = std::make_shared<BankAccount>(bA);
-        nu.bankaccount.push_back(bankptr);
+        nu.addBankAccount(bankptr);
 
         auto el = find(clients.begin(), clients.end(), &nu);
         if(el != clients.end()) {

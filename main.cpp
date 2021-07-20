@@ -52,7 +52,7 @@ int main() {
     BankAccount bA6 = bank3->newBankAccount(*user2, 500);
     bankaccounts.insert(make_pair(bA6.getNumber(), &bA6));
 
-    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->bankaccount.size()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->bankaccount.size()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user1->bankaccount.size()<<endl;
+    cout<<"Users: "<<"\n"<<user1->getName()<<" "<<user1->getSurname()<<", bank account number: "<<user1->getBAVect().size()<<"\n"<<user2->getName()<<" "<<user2->getSurname()<<", bank account number: "<<user2->getBAVect().size()<<"\n"<<user3->getName()<<" "<<user3->getSurname()<<", bank account number: "<<user1->getBAVect().size()<<endl;
     cout<<"Banks: "<<"\n"<<bank1->getName()<<"\n"<<bank2->getName()<<"\n"<<bank3->getName()<<endl;
 
     bool doing = true;
@@ -74,12 +74,13 @@ int main() {
                         rep = false;
                 }
                 auto itu = users.find(n);
-                cout<<"Quale dei "<<itu->second->bankaccount.size()<<" vuoi ricaricare? (partendo dallo 0)"<<endl;
+                auto Bankaccount = itu->second->getBAVect();
+                cout<<"Quale dei "<<Bankaccount.size()<<" vuoi ricaricare? (partendo dallo 0)"<<endl;
                 int num;
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size() || num<0)
+                    if (num > Bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -87,7 +88,7 @@ int main() {
                 cout << "quanto vuoi ricaricare?" << endl;
                 float r;
                 cin >> r;
-                cout<<itu->second->bankaccount[num]->recharge(r)<<"\n"<<endl;
+                cout<<Bankaccount[num]->recharge(r)<<"\n"<<endl;
                 break;
             }
             case 1 : {
@@ -103,12 +104,13 @@ int main() {
                         rep = false;
                 }
                 auto itu = users.find(n);
-                cout<<"Quale dei "<<itu->second->bankaccount.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
+                auto Bankaccount1 = itu->second->getBAVect();
+                cout<<"Quale dei "<<Bankaccount1.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
                 int num;
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size() || num<0)
+                    if (num > Bankaccount1.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -124,12 +126,13 @@ int main() {
                         rep = false;
                 }
                 auto itu2 = users.find(p);
-                cout<<"Quale dei "<<itu2->second->bankaccount.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
+                auto Bankaccount2 = itu2->second->getBAVect();
+                cout<<"Quale dei "<<Bankaccount2.size()<<" conti vuoi utilizzare? (partendo dallo 0)"<<endl;
                 int num2;
                 repc = true;
                 while(repc) {
                     cin >> num2;
-                    if (num2 > itu->second->bankaccount.size() || num<0)
+                    if (num2 > Bankaccount2.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -155,7 +158,7 @@ int main() {
                else if(esit == "n")
                    receiv = false;
 
-                cout<<itu->second->bankaccount[num]->transazione(rec, *(itu2->second->bankaccount[num2]), tr, receiv)<<"\n"<<endl;
+                cout<<Bankaccount1[num]->transazione(rec, *(Bankaccount2[num2]), tr, receiv)<<"\n"<<endl;
 
                 break;
             }
@@ -172,12 +175,13 @@ int main() {
                         rep = false;
                 }
                 auto itu = users.find(n);
-                cout<<"Da quale dei "<<itu->second->bankaccount.size()<<" conti vuoi prelevare? (partendo dallo 0)"<<endl;
+                auto Bankaccount = itu->second->getBAVect();
+                cout<<"Da quale dei "<<Bankaccount.size()<<" conti vuoi prelevare? (partendo dallo 0)"<<endl;
                 int num;
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size() || num<0)
+                    if (num > Bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
@@ -185,7 +189,7 @@ int main() {
                 cout << "Quanto vuoi prelevare?" << endl;
                 float r;
                 cin >> r;
-                cout<<itu->second->bankaccount[num]->withdraw(r)<<"\n"<<endl;
+                cout<<Bankaccount[num]->withdraw(r)<<"\n"<<endl;
                 break;
             }
             case 3 : {
@@ -201,17 +205,19 @@ int main() {
                         rep = false;
                 }
                 auto itu = users.find(n);
-                cout<<"Di quale dei "<<itu->second->bankaccount.size()<<" conti vuoi ottenere la lista di transazioni? (partendo dallo 0)"<<endl;
+                auto Bankaccount = itu->second->getBAVect();
+                cout<<"Di quale dei "<<Bankaccount.size()<<" conti vuoi ottenere la lista di transazioni? (partendo dallo 0)"<<endl;
                 int num;
                 bool repc = true;
                 while(repc) {
                     cin >> num;
-                    if (num > itu->second->bankaccount.size() || num<0)
+                    if (num > Bankaccount.size() || num<0)
                         cerr << "Conto inesistente, riprovare." << endl;
                     else
                         repc = false;
                 }
-                itu->second->bankaccount[num]->fileTransaction();
+                Bankaccount[num]->fileTransaction();
+                break;
             }
             case 4 : {
                 doing = false;
@@ -236,6 +242,7 @@ int main() {
         }
         tfile.close();
     }
+
     return 0;
 }
 

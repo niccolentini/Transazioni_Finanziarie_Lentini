@@ -7,7 +7,8 @@
 TEST(BankAccount, InitialZero){
     BankAccount bA(0);
     ASSERT_EQ(0, bA.getBalance());
-    ASSERT_EQ(0, bA.transazioni.size());
+    auto tr = bA.getVectorTransaction();
+    ASSERT_EQ(0, tr.size());
 }
 
 TEST(BankAccount, changeBalance){
