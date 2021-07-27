@@ -6,15 +6,21 @@
 #define TRANSAZIONIFINANZIARIE_TRANSACTION_H
 using namespace std;
 #include "string"
+#include "stdexcept"
 
 class Transaction {
 public:
     Transaction(int s, int r, float a, string d, bool re){
-        sender=s;
-        receiver=r;
-        amount=a;
-        data=d;
-        received=re;
+        if(s != r && a > 0) {
+            sender = s;
+            receiver = r;
+            amount = a;
+            data = d;
+            received = re;
+        }
+        else {
+            throw invalid_argument("Valori non validi per la creazione di una transazione.");
+        }
     }
 
     int getSender() const {
