@@ -135,6 +135,8 @@ int main() {
                     bA->nuovaTransazione(rec, *bA2, tr, receiv);
                 }catch (out_of_range& e){
                     cerr<<e.what()<<"Operazione annullata."<<endl;
+                }catch(invalid_argument& a){
+                    cerr<<a.what()<<" Operazione annullata."<<endl;
                 }
 
                 break;
