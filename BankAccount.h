@@ -9,22 +9,7 @@ using namespace std;
 #include "vector"
 #include "iostream"
 #include "fstream"
-
-struct Transaction {
-    Transaction(int s, int r, float a, string d, bool re){
-        sender=s;
-        receiver=r;
-        amount=a;
-        data=d;
-        received=re;
-    }
-    int sender;
-    int receiver;
-    float amount;
-    string data;
-    bool received;
-};
-
+#include "Transaction.h"
 
 class BankAccount {
 public:
@@ -55,35 +40,39 @@ public:
 
 
     void nuovaTransazione (bool rec, BankAccount& b2, float amount, bool recv){
-        Transaction t (number, b2.getBankAccountNumber(), amount, "data nuovaTransazione", rec);
-        transazioni.push_back(t);
-        b2.transazioni.push_back(t);
-        if(rec) {
-            if(amount <= b2.getBalance() && amount>0) {
-                balance += amount;
-                b2.balance -= amount;
-            }
-            else if(amount<0)
-                throw out_of_range("Impossibile eseguire (valore < 0).");
-            else
-                throw out_of_range("Credito insufficiente per effettuare la nuovaTransazione");
+        if(number == b2.number){
+            throw invalid_argument("I due conti risultano essere lo stesso. Impossibile eseguire operazione."); //controllo sugli indirizzi
         }
-        else{
-            if(amount <= balance && amount>0) {
-                balance -= amount;
-                b2.balance += amount;
+        else {
+            if (rec) {
+                if (amount <= b2.getBalance() && amount > 0) {
+                    balance += amount;
+                    b2.balance -= amount;
+                } else if (amount < 0)
+                    throw out_of_range("Impossibile eseguire (valore < 0).");                                  //controllo sull'importo
+                else
+                    throw out_of_range("Credito insufficiente per effettuare la nuovaTransazione");
+            } else {
+                if (amount <= balance && amount > 0) {
+                    balance -= amount;
+                    b2.balance += amount;
+                } else if (amount < 0)
+                    throw out_of_range("Impossibile eseguire (valore < 0)...");
+                else
+                    throw out_of_range("Credito insufficiente per effettuare la nuovaTransazione");
             }
-            else if(amount<0)
-                throw out_of_range("Impossibile eseguire (valore < 0)...");
-            else
-                throw out_of_range("Credito insufficiente per effettuare la nuovaTransazione");
-        }
 
-        if(recv){
-            ofstream tfile;
-            tfile.open("transazioni.txt", ios::app);
-            tfile<<"ID sender: "<<t.sender<<"\n ID receiver: "<<t.receiver<<"\n Amount: "<<t.amount<<"$"<<"\n Data: "<<t.data<<"\n\n";
-            tfile.close();
+            Transaction t(number, b2.getBankAccountNumber(), amount, "data nuovaTransazione", rec);
+            transazioni.push_back(&t);
+            b2.transazioni.push_back(&t);
+
+            if (recv) {
+                ofstream tfile;
+                tfile.open("transazioni.txt", ios::app);
+                tfile << "ID sender: " << t.getSender() << "\n ID receiver: " << t.getReceiver() << "\n Amount: " << t.getAmount()
+                      << "$" << "\n Data: " << t.getData() << "\n\n";
+                tfile.close();
+            }
         }
     }
 
@@ -111,8 +100,8 @@ public:
         ofstream tfile;
         tfile.open("transazioni_conto.txt", ios::app);
         for (auto itr : transazioni) {
-            tfile << "ID sender: " << itr.sender << "\n ID receiver: " << itr.receiver << "\n Amount: " << itr.amount << "$"
-                  << "\n Data: " << itr.data<<"\n\n";
+            tfile << "ID sender: " << itr->getSender() << "\n ID receiver: " << itr->getReceiver() << "\n Amount: " << itr->getAmount() << "$"
+                  << "\n Data: " << itr->getData()<<"\n\n";
         }
         tfile.close();
         cout<<"File con lista delle transazioni generato con successo! \n Per visualizzarlo nel terminale premere 0, premere 1 altrimenti."<<endl;
@@ -136,7 +125,7 @@ public:
 private:
     const int number;
     float balance{0};
-    vector<Transaction> transazioni;
+    vector<Transaction*> transazioni;
 };
 
 

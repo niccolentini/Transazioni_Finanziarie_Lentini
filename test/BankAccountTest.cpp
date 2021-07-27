@@ -30,6 +30,7 @@ TEST(BankAccount, exceptions){
     ASSERT_THROW(bA.recharge(-10), std::out_of_range);
     ASSERT_THROW(bA.withdraw(-10), std::out_of_range);
     ASSERT_THROW(bA.nuovaTransazione(true, bA2, -100, false), std::out_of_range);
+    ASSERT_THROW(bA.nuovaTransazione(true, bA, 100, true), std::invalid_argument);
 }
 
 TEST(BankAccount, files){
