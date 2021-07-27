@@ -167,12 +167,14 @@ int main() {
                     cout << "Inserire ID intestatario" << endl;
                     int i = users.size();
                     int n;
+                    cin>>n;
                     if (n > (i) || n <= 0)
                         throw out_of_range("ID inesistente, riprovare.");
                     auto itu = users.find(n);
                     cout << "Di quale dei " << itu->second->bankAccountVectorSize()
                          << " conti vuoi ottenere la lista di transazioni? (partendo dallo 0)" << endl;
                     int num;
+                    cin>>num;
                     auto bA = itu->second->findBankAccount(num);
                     bA->loadTransactions();
                 }catch (out_of_range& e){
